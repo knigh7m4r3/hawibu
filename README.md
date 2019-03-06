@@ -7,18 +7,18 @@ Kleine JavaFX-Anwendung mit lokaler H2-Datenbank.
 
 ## Features
 
-[ ] Bon eingeben
-  [ ] Artikel zum Bon hinzufügen 
-    [ ] Artikel einer Kategorie zuweisen
-  [ ] Datum zum Bon hinzufügen
-  [ ] Geschäft zum Bon hinzufügen
+- Bon eingeben
+  - Artikel zum Bon hinzufügen 
+    - Artikel einer Kategorie zuweisen
+  - Datum zum Bon hinzufügen
+  - Geschäft zum Bon hinzufügen
   
-[ ] Monatsübersichten
-[ ] Filter
-[ ] Auswertungen von Filter- und Monatsübersichten
+- Monatsübersichten
+- Filter
+- Auswertungen von Filter- und Monatsübersichten
 
 ### Ausblick
-[ ] monatliches Einkommen und Rest-Summen-Anzeige
+- monatliches Einkommen und Rest-Summen-Anzeige
 
 
 # Hinweise
