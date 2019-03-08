@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.GridPane?>
+<AnchorPane id="AnchorPane" prefHeight="200" prefWidth="320" xmlns:fx="http://javafx.com/fxml">
+    <GridPane>
+        <ScrollPane fx:id="scrollPaneJahr" style="max-width:50%;  " GridPane.columnIndex="0" >
+
+        </ScrollPane>
+
+        <ScrollPane fx:id="scrollPaneDetail" style="width:50%; height:100%"  GridPane.columnIndex="1">
+            <TextArea>hier steht was aber natürlich nur in einem Text-Element....</TextArea>
+
+        </ScrollPane>
+
+    </GridPane>
+</AnchorPane>
