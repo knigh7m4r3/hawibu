@@ -3,9 +3,13 @@ package blexer.controller;
 import blexer.model.*;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.chart.PieChart;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
@@ -108,6 +112,9 @@ public class MainController {
         pane.add(headerKat, 0, 2);
         pane.add(headerMoney, 1, 2);
 
+        ObservableList<PieChart.Data> pieChartData =
+                FXCollections.observableArrayList();
+
         int counter = 3;
         double gesamt = 0.0;
         Iterator it = kategorieMap.entrySet().iterator();
@@ -120,12 +127,15 @@ public class MainController {
 
             TextField money = new TextField();
             money.setEditable(false);
-            money.setText(""+entry.getValue());
+            money.setText("" + entry.getValue() + " €");
+            money.setAlignment(Pos.CENTER_RIGHT);
 
             gesamt += entry.getValue();
 
             pane.add(kat,  0, counter);
             pane.add(money, 1, counter);
+
+            pieChartData.add(new PieChart.Data(entry.getKey().getName(), entry.getValue()));
             ++counter;
         }
 
@@ -151,6 +161,13 @@ public class MainController {
 
         pane.add(headerGesamt, 0, counter + 3);
         pane.add(headerGesamtMoney, 1, counter + 3 );
+
+
+        PieChart chart = new PieChart(pieChartData);
+        chart.setTitle("Übersicht");
+        chart.setLabelsVisible(true);
+        GridPane.setColumnSpan(chart, 2);
+        pane.add(chart, 0, counter + 5);
 
         this.scrollPaneDetail.setContent(pane);
 
