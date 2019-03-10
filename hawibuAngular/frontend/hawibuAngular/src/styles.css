@@ -1,0 +1,23 @@
+/* You can add global styles to this file, and also import other style files */
+@import 'assets/gumby.css';
+@import 'assets/style.css';
+
+.button {
+  border: none;
+  outline: none;
+  background-color: #40B0F9;
+  letter-spacing: 1px;
+  color: white;
+  text-transform: uppercase;
+  font-weight: normal;
+  position: relative;
+  border-radius: 4px;
+  font-size: 1rem;
+  text-align: left;
+  padding: 1rem;
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+.button:hover{
+  cursor: pointer;
+}
