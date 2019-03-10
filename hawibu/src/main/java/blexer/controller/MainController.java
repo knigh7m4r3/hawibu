@@ -3,15 +3,25 @@ package blexer.controller;
 import blexer.model.*;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.chart.PieChart;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import javax.persistence.EntityManager;
+import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.*;
 
 
@@ -55,23 +65,28 @@ public class MainController {
                 System.out.println("Clicked on:\t" + newValue.getValue());
                 String val = newValue.getValue();
                 MainController.this.currentSelection = val;
-                List<Bon> bonList = new ArrayList<>();
-
-
-                if(val.length() == 4){
-                    List<Monat> monatList = MainController.this.em.createQuery("from Monat m where m.jahr.jahr = " +  val).getResultList();
-                    for(Monat m : monatList){
-                        if(MainController.this.monatBonMap.containsKey(m.getName())) {
-                            bonList.addAll(MainController.this.monatBonMap.get(m.getName()));
-                        }
-                    }
-                }else{
-                    bonList.addAll(MainController.this.monatBonMap.get(val));
-                }
-
+                List<Bon> bonList = selectBon(val);
                 processBonList(bonList);
             }
         });
+        if(!this.currentSelection.isEmpty()){
+            processBonList(selectBon(currentSelection));
+        }
+    }
+
+    private List<Bon> selectBon(String val){
+        final List<Bon> bonList = new ArrayList<>();
+        if(val.length() == 4){
+            List<Monat> monatList = MainController.this.em.createQuery("from Monat m where m.jahr.jahr = " +  val).getResultList();
+            for(Monat m : monatList){
+                if(MainController.this.monatBonMap.containsKey(m.getName())) {
+                    bonList.addAll(MainController.this.monatBonMap.get(m.getName()));
+                }
+            }
+        }else{
+            bonList.addAll(MainController.this.monatBonMap.get(val));
+        }
+        return bonList;
     }
 
     private void processBonList(List<Bon> bonList){
@@ -110,6 +125,7 @@ public class MainController {
 
         int counter = 3;
         double gesamt = 0.0;
+        final ObservableList<PieChart.Data> data = FXCollections.observableArrayList();
         Iterator it = kategorieMap.entrySet().iterator();
         while(it.hasNext()){
 
@@ -120,12 +136,14 @@ public class MainController {
 
             TextField money = new TextField();
             money.setEditable(false);
-            money.setText(""+entry.getValue());
+            money.setText(new DecimalFormat("#######.##").format(entry.getValue()) + " €");
+            money.setAlignment(Pos.CENTER_RIGHT);
 
             gesamt += entry.getValue();
 
             pane.add(kat,  0, counter);
             pane.add(money, 1, counter);
+            data.add(new PieChart.Data(entry.getKey().getName(), entry.getValue()));
             ++counter;
         }
 
@@ -145,12 +163,18 @@ public class MainController {
         headerGesamt.setPadding(new Insets(0,0,0,10));
         GridPane.setHalignment(headerGesamt, HPos.LEFT);
 
-        Label headerGesamtMoney = new Label(""+gesamt+" €");
+        Label headerGesamtMoney = new Label(new DecimalFormat("#######.##").format(gesamt) + " €");
+        headerGesamtMoney.setAlignment(Pos.CENTER_RIGHT);
         headerGesamtMoney.setUnderline(true);
         GridPane.setHalignment(headerGesamtMoney, HPos.RIGHT);
 
         pane.add(headerGesamt, 0, counter + 3);
         pane.add(headerGesamtMoney, 1, counter + 3 );
+
+        final PieChart chart = new PieChart(data);
+        chart.setTitle("Verteilung");
+        GridPane.setColumnSpan(chart, 2);
+        pane.add(chart, 0, counter + 5);
 
         this.scrollPaneDetail.setContent(pane);
 
@@ -187,6 +211,31 @@ public class MainController {
         this.scrollPaneJahr.setContent(this.treeViewJahr);
         System.out.println("Children under root:\t"+root.getChildren().size());
 
+    }
+
+    @FXML
+    public void showAddBon(){
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/addBon.fxml"));
+        Stage dialog = new Stage();
+        BonController bonController = new BonController(this.em, dialog, this.stage);
+        loader.setController(bonController);
+        Parent root = null;
+        try {
+            root = loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+        Scene scene = new Scene(root);
+
+        dialog.initOwner(stage);
+        dialog.initModality(Modality.APPLICATION_MODAL);
+        dialog.setTitle("JavaFX and Maven");
+        dialog.setScene(scene);
+        dialog.showAndWait();
+
+        initialize();
     }
 
 }

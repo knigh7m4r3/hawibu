@@ -48,4 +48,9 @@ public class Geschaeft {
     public void setBonList(List<Bon> bonList) {
         this.bonList = bonList;
     }
+
+    @Override
+    public String toString(){
+        return this.name+" - " + this.ort;
+    }
 }

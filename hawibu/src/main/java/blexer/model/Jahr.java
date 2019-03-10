@@ -1,6 +1,7 @@
 package blexer.model;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -37,5 +38,23 @@ public class Jahr {
 
     public void setMonat(List<Monat> monat) {
         this.monat = monat;
+    }
+
+    public static Jahr getJahrByDate(LocalDate date, EntityManager em){
+        final List<Jahr> jahrList = em.createQuery("from Jahr j where j.jahr= '" + date.getYear() + "'" ).getResultList();
+        if(jahrList.size() == 0){
+            final Jahr jahr = new Jahr();
+            jahr.jahr = date.getYear();
+            return em.merge(jahr);
+        }else{
+            return jahrList.get(0);
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "Jahr{" +
+                "jahr=" + jahr +
+                '}';
     }
 }

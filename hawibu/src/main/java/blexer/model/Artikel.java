@@ -50,4 +50,9 @@ public class Artikel {
     public void setPostenList(List<Posten> postenList) {
         this.postenList = postenList;
     }
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }
