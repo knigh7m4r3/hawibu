@@ -1,4 +1,6 @@
-package blexer.model;
+package blexer.datalayer.model;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.util.List;
@@ -16,6 +18,7 @@ public class Artikel {
     private Kategorie kategorie;
 
     @OneToMany
+    @JsonIgnore
     private List<Posten> postenList;
 
 

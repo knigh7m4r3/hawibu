@@ -2,10 +2,12 @@ package blexer;
 
 import blexer.controller.MainController;
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -17,7 +19,8 @@ public class MainApp extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("thePersistenceUnit");
-        EntityManager em = emf.createEntityManager();
+        final EntityManager em = emf.createEntityManager();
+        em.getTransaction().begin();
 
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Scene.fxml"));
@@ -31,6 +34,12 @@ public class MainApp extends Application {
         stage.setTitle("JavaFX and Maven");
         stage.setScene(scene);
         stage.show();
+        stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+            @Override
+            public void handle(WindowEvent event) {
+                em.getTransaction().commit();
+            }
+        });
 
     }
 

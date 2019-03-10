@@ -1,4 +1,6 @@
-package blexer.model;
+package blexer.datalayer.model;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -14,6 +16,7 @@ public class Jahr {
     private Integer jahr;
 
     @OneToMany(fetch = FetchType.EAGER)
+    @JsonIgnore
     private List<Monat> monat;
 
     public Integer getId() {

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.text.Text?>
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml">
+
+
+    <Text>Bon hinzufügen</Text>
+    <GridPane>
+
+        <Label>Datum:</Label>
+        <DatePicker GridPane.columnIndex="1" fx:id="datePicker" prefWidth="200"/>
+
+        <Label GridPane.rowIndex="1">Geschäft:</Label>
+        <ComboBox GridPane.rowIndex="1" GridPane.columnIndex="1" fx:id="geschaeftBox" prefWidth="200"/>
+
+        <Button alignment="BASELINE_CENTER" GridPane.columnSpan="2" GridPane.rowIndex="3" onAction="#handleWeiterButton">Weiter</Button>
+
+    </GridPane>
+
+</AnchorPane>

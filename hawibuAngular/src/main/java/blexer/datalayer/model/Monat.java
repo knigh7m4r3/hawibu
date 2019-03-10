@@ -1,4 +1,6 @@
-package blexer.model;
+package blexer.datalayer.model;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -40,6 +42,7 @@ public class Monat {
     private String name;
 
     @OneToMany
+    @JsonIgnore
     private List<Bon> bonList;
 
     public Integer getId() {

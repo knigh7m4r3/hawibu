@@ -1,0 +1,8 @@
+.contentRight{
+  width:66%;
+  float: right;
+}
+
+.contentRight > * {
+  float:right;
+}

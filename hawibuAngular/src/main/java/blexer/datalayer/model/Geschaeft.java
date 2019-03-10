@@ -1,4 +1,6 @@
-package blexer.model;
+package blexer.datalayer.model;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.util.List;
@@ -11,6 +13,7 @@ public class Geschaeft {
     private Integer id;
 
     @OneToMany
+    @JsonIgnore
     private List<Bon> bonList;
 
     private String name;

@@ -1,19 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.TextArea?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.GridPane?>
-<AnchorPane id="AnchorPane" prefHeight="200" prefWidth="320" xmlns:fx="http://javafx.com/fxml">
-    <GridPane>
-        <ScrollPane fx:id="scrollPaneJahr" style="max-width:50%;  " GridPane.columnIndex="0" >
+<!--<?import javafx.scene.control.ScrollPane?>-->
+<!--<?import javafx.scene.layout.AnchorPane?>-->
+<!--<?import javafx.scene.layout.GridPane?>-->
+<!--<?import javafx.scene.layout.BorderPane?>-->
+<!--<?import javafx.scene.control.MenuItem?>-->
+<!--<?import javafx.scene.control.Menu?>-->
+<!--<?import javafx.scene.control.MenuBar?>-->
+<?import javafx.scene.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.RowConstraints?>
 
-        </ScrollPane>
-
-        <ScrollPane fx:id="scrollPaneDetail" style="width:50%; height:100%"  GridPane.columnIndex="1">
-            <TextArea>hier steht was aber natürlich nur in einem Text-Element....</TextArea>
-
-        </ScrollPane>
-
-    </GridPane>
+<AnchorPane id="AnchorPane" fx:id="anchorPane" prefHeight="768" prefWidth="1024" xmlns:fx="http://javafx.com/fxml">
+    <BorderPane fx:id="borderPane" prefWidth="${anchorPane.width}" prefHeight="${anchorPane.height}">
+        <top>
+            <MenuBar BorderPane.alignment="TOP_CENTER" prefWidth="${anchorPane.width}">
+                <Menu text="Anwendung">
+                    <items>
+                        <MenuItem text="Bon hinzufügen" onAction="#showAddBon" accelerator="Shortcut + d" />
+                    </items>
+                </Menu>
+            </MenuBar>
+        </top>
+        <center>
+            <GridPane fx:id="grid" prefHeight="${borderPane.height}" prefWidth="${borderPane.width}">
+                <ScrollPane fx:id="scrollPaneJahr"   GridPane.columnIndex="0" />
+                <ScrollPane fx:id="scrollPaneDetail"  GridPane.columnIndex="1"/>
+            </GridPane>
+        </center>
+    </BorderPane>
 </AnchorPane>
