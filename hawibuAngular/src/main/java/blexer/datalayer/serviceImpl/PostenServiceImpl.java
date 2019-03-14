@@ -1,7 +1,9 @@
 package blexer.datalayer.serviceImpl;
 
+import blexer.datalayer.model.Bon;
 import blexer.datalayer.model.Posten;
 import blexer.datalayer.repository.PostenRepository;
+import blexer.datalayer.repository.PostenRepositoryCustom;
 import blexer.datalayer.service.PostenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -14,6 +16,9 @@ public class PostenServiceImpl implements PostenService {
 
      @Autowired
      private PostenRepository repository;
+
+     @Autowired
+     private PostenRepositoryCustom repositoryCustom;
 
     @Transactional
     public Posten getEntity(Integer id) {
@@ -38,5 +43,10 @@ public class PostenServiceImpl implements PostenService {
     @Transactional
     public List<Posten> getAll() {
         return repository.findAll();
+    }
+
+    @Transactional
+    public List<Posten> getByBons(List<Bon> bonList) {
+        return repositoryCustom.getByBon(bonList);
     }
 }

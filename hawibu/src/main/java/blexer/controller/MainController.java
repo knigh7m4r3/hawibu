@@ -70,12 +70,12 @@ public class MainController {
             }
         });
         if(!this.currentSelection.isEmpty()){
-            processBonList(selectBon(currentSelection));
+            processBonList(selectBon(this.currentSelection));
         }
     }
 
     private List<Bon> selectBon(String val){
-        final List<Bon> bonList = new ArrayList<>();
+        List<Bon> bonList = new ArrayList<>();
         if(val.length() == 4){
             List<Monat> monatList = MainController.this.em.createQuery("from Monat m where m.jahr.jahr = " +  val).getResultList();
             for(Monat m : monatList){
@@ -123,12 +123,10 @@ public class MainController {
         pane.add(headerKat, 0, 2);
         pane.add(headerMoney, 1, 2);
 
-        ObservableList<PieChart.Data> pieChartData =
-                FXCollections.observableArrayList();
 
         int counter = 3;
         double gesamt = 0.0;
-        final ObservableList<PieChart.Data> data = FXCollections.observableArrayList();
+        ObservableList<PieChart.Data> data = FXCollections.observableArrayList();
         Iterator it = kategorieMap.entrySet().iterator();
         while(it.hasNext()){
 
@@ -147,7 +145,6 @@ public class MainController {
             pane.add(kat,  0, counter);
             pane.add(money, 1, counter);
             data.add(new PieChart.Data(entry.getKey().getName(), entry.getValue()));
-            pieChartData.add(new PieChart.Data(entry.getKey().getName(), entry.getValue()));
             ++counter;
         }
 
@@ -176,16 +173,12 @@ public class MainController {
         pane.add(headerGesamtMoney, 1, counter + 3 );
 
 
-        PieChart chart = new PieChart(pieChartData);
+        PieChart chart = new PieChart(data);
         chart.setTitle("Übersicht");
         chart.setLabelsVisible(true);
         GridPane.setColumnSpan(chart, 2);
         pane.add(chart, 0, counter + 5);
 
-        final PieChart chart = new PieChart(data);
-        chart.setTitle("Verteilung");
-        GridPane.setColumnSpan(chart, 2);
-        pane.add(chart, 0, counter + 5);
 
         this.scrollPaneDetail.setContent(pane);
 
@@ -240,7 +233,7 @@ public class MainController {
 
         Scene scene = new Scene(root);
 
-        dialog.initOwner(stage);
+        dialog.initOwner(this.stage);
         dialog.initModality(Modality.APPLICATION_MODAL);
         dialog.setTitle("JavaFX and Maven");
         dialog.setScene(scene);

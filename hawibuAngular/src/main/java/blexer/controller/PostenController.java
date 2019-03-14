@@ -1,5 +1,6 @@
 package blexer.controller;
 
+import blexer.datalayer.model.Bon;
 import blexer.datalayer.model.Posten;
 import blexer.datalayer.service.PostenService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,5 +44,10 @@ public class PostenController {
     public ResponseEntity<?> delete(@PathVariable("posten") Posten posten){
         postenService.deleteEntity(posten);
         return ResponseEntity.ok().body("Posten successfully deleted!");
+    }
+
+    @PostMapping("/api/posten/byBons")
+    public ResponseEntity<?> save(@RequestBody List<Bon> bonList){
+        return ResponseEntity.ok().body(postenService.getByBons(bonList));
     }
 }

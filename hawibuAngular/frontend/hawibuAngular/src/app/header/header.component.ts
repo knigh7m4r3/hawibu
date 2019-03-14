@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {JahrService} from "../services/jahr.service";
+import {Jahr} from "../model/Jahr";
 
 @Component({
   selector: 'app-header',
@@ -7,9 +9,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor() { }
+  constructor(private jahrService: JahrService) { }
+
+  jahrList: Jahr[];
 
   ngOnInit() {
+
+
   }
 
 }

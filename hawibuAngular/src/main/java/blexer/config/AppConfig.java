@@ -1,6 +1,7 @@
 package blexer.config;
 
 
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.jpa.HibernatePersistenceProvider;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +35,7 @@ import static org.hibernate.cfg.AvailableSettings.*;
         @ComponentScan("blexer.config"),
         @ComponentScan("blexer.controller"),
         @ComponentScan("blexer.datalayer.repository"),
+        @ComponentScan("blexer.datalayer.repositoryImpl"),
         @ComponentScan("blexer.datalayer.service"),
         @ComponentScan("blexer.datalayer.serviceImpl")
 })
@@ -54,6 +56,11 @@ public class AppConfig {
 
         return emf;
     }
+
+//    @Bean
+//    public Session session(){
+//        return (Session)this.entityManager().getDelegate();
+//    }
 
     @ConfigurationProperties(prefix = "db.properties")
     @Bean

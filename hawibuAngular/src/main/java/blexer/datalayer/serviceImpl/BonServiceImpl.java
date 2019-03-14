@@ -1,6 +1,7 @@
 package blexer.datalayer.serviceImpl;
 
 import blexer.datalayer.model.Bon;
+import blexer.datalayer.repository.BonRepositoryCustom;
 import blexer.datalayer.repository.BonRepository;
 import blexer.datalayer.service.BonService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,9 @@ public class BonServiceImpl implements BonService {
 
      @Autowired
      private BonRepository repository;
+
+     @Autowired
+     private BonRepositoryCustom bonRepositoryCustom;
 
     @Transactional
     public Bon getEntity(Integer id) {
@@ -38,5 +42,15 @@ public class BonServiceImpl implements BonService {
     @Transactional
     public List<Bon> getAll() {
         return repository.findAll();
+    }
+
+    @Transactional
+    public List<Bon> getByMonat(String monat) {
+        return bonRepositoryCustom.getByMonat(monat);
+    }
+
+    @Transactional
+    public List<Bon> getByJahr(String jahr) {
+        return bonRepositoryCustom.getByJahr(jahr);
     }
 }

@@ -15,8 +15,8 @@ public class Bon {
 
     private Date date;
 
-    @OneToMany
-    @JsonIgnore
+    @OneToMany(fetch = FetchType.EAGER)
+//    @JsonIgnore
     private List<Posten> postenList;
 
     @ManyToOne

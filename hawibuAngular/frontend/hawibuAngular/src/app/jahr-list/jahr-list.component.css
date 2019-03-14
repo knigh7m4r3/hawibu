@@ -1,0 +1,24 @@
+.liClass{
+  cursor:   pointer;
+}
+
+
+.ulClass{
+  margin-left: 2rem;
+  list-style-type: disc;
+
+}
+
+.ulClass > li > p {
+  font-size: larger;
+  color: black;
+}
+
+.divContainer{
+  border: 1px solid black;
+  width: 200px;
+}
+
+.activeItem{
+  color: blue !important;
+}

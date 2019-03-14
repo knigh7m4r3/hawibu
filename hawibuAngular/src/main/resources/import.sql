@@ -1,4 +1,4 @@
-  insert into Jahr(id, jahr) values(2017, 2017);
+﻿  insert into Jahr(id, jahr) values(2017, 2017);
   insert into Jahr(id, jahr) values(2018, 2018);
   insert into Jahr(id, jahr) values(2019, 2019);
  

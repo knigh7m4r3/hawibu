@@ -1,6 +1,8 @@
 package blexer.controller;
 
 import blexer.datalayer.model.Bon;
+import blexer.datalayer.model.Jahr;
+import blexer.datalayer.model.Monat;
 import blexer.datalayer.service.BonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -43,5 +45,19 @@ public class BonController {
     public ResponseEntity<?> delete(@PathVariable("bon") Bon bon){
         bonService.deleteEntity(bon);
         return ResponseEntity.ok().body("Bon successfully deleted!");
+    }
+
+    @GetMapping("/api/bon/byMonat/{monat}")
+    public ResponseEntity getByMonat(@PathVariable("monat") String monat){
+        final List<Bon> list = bonService.getByMonat(monat);
+        return ResponseEntity.ok().body(list);
+
+    }
+
+    @GetMapping("/api/bon/byJahr/{jahr}")
+    public ResponseEntity getByJahr(@PathVariable("jahr") String jahr){
+        final List<Bon> list = bonService.getByJahr(jahr);
+        return ResponseEntity.ok().body(list);
+
     }
 }

@@ -12,8 +12,8 @@ import java.util.List;
 @Component
 public class MonatServiceImpl implements MonatService {
 
-     @Autowired
-     private MonatRepository repository;
+    @Autowired
+    private MonatRepository repository;
 
     @Transactional
     public Monat getEntity(Integer id) {
@@ -39,4 +39,5 @@ public class MonatServiceImpl implements MonatService {
     public List<Monat> getAll() {
         return repository.findAll();
     }
+
 }

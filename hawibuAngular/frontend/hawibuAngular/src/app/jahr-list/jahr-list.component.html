@@ -1,14 +1,13 @@
-<div style="border: 1px solid black;">
+<div class="divContainer">
 
-  <ul style="margin-left: 1rem; list-style-type: disc">
+  <ul class="ulClass" >
 
-    <li>Hier steht was!</li>
-    <li> Hier steht noch was!</li>
-
-    <li>
-      2019
-      <ul style="margin-left: 1rem;list-style-type: disc">
-        <li> Februar</li>
+    <li *ngFor="let jahr of jahre"  >
+      <p [ngClass]="{'activeItem' : jahr === selectedItem}" (click)="handleJahrClick(jahr)" class="liClass" >{{jahr}}</p>
+      <ul class="ulClass" *ngIf="jahr === selectedJahr">
+        <li *ngFor="let monat of jahrMonatMap.get(jahr)"  class="liClass">
+          <p (click)="handleMonatClick(monat)"  [ngClass]="{'activeItem' : monat === selectedItem}">{{monat}}</p>
+        </li>
 
       </ul>
 

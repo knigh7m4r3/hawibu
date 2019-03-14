@@ -1,3 +1,65 @@
-<p>
-  detailj works!
-</p>
+<div *ngIf="!currentSelection">
+  <h1>Keine Auswahl getroffen oder keine Daten vorhanden!</h1>
+
+
+</div>
+
+
+<div *ngIf="currentSelection" style="float: left; width: 100%">
+  <h1>Aktuelle Auswahl: {{currentSelection}}</h1>
+
+  <tabset [justified]="true">
+    <tab >
+      <ng-template tabHeading>
+        Tabellarische Übersicht
+      </ng-template>
+      <table>
+        <tr>
+          <th>Kategorie</th>
+          <th>Ausgaben</th>
+
+        </tr>
+
+
+        <tr *ngFor="let entry of katMap | keyvalue">
+          <td>{{entry.key}}</td>
+          <td>{{entry.value}} €</td>
+
+        </tr>
+        <tr>
+          <td><b><u>Gesamt</u></b></td>
+          <td><b><u>{{currentGesamt | number:'.2-2'}}€</u></b></td>
+
+        </tr>
+      </table>
+    </tab>
+
+    <tab>
+      <ng-template tabHeading>
+        Tortendiagramm
+      </ng-template>
+      <canvas baseChart
+              [data]="pieChartData"
+              [labels]="pieChartLabels"
+              [chartType]="pieChartType"
+              [options]="pieChartOptions"
+              [legend]="pieChartLegend">
+      </canvas>
+
+    </tab>
+
+    <tab>
+      <ng-template tabHeading>
+        Balkendiagramm
+      </ng-template>
+      <canvas baseChart
+              [data]="pieChartData"
+              [labels]="pieChartLabels"
+              [chartType]="'bar'"
+              [options]="pieChartOptions"
+              [legend]="pieChartLegend">
+      </canvas>
+    </tab>
+
+  </tabset>
+</div>
