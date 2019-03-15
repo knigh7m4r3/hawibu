@@ -13,14 +13,20 @@ import {JahrListService} from "./jahr-list/jahr.service";
 import {BonService} from "./services/bon.service";
 import {PostenService} from "./services/posten.service";
 import {ChartsModule} from "ng2-charts";
-import {TabsModule} from "ngx-bootstrap";
+import {ModalModule, TabsModule} from "ngx-bootstrap";
+import { BonComponent } from './bon/bon.component';
+import {FormsModule} from "@angular/forms";
+import {GeschaeftService} from "./services/geschaeft.service";
+import {KategorieService} from "./services/kategorie.service";
+import {ArtikelService} from "./services/artikel.service";
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     JahrListComponent,
-    DetailjComponent
+    DetailjComponent,
+    BonComponent
   ],
   imports: [
     CommonModule,
@@ -29,13 +35,18 @@ import {TabsModule} from "ngx-bootstrap";
     AppRoutingModule,
     HttpClientModule,
     ChartsModule,
-    TabsModule.forRoot()
+    FormsModule,
+    TabsModule.forRoot(),
+    ModalModule.forRoot()
 
   ],
   providers: [
     JahrListService,
     BonService,
-    PostenService
+    PostenService,
+    GeschaeftService,
+    KategorieService,
+    ArtikelService
   ],
   bootstrap: [AppComponent]
 })

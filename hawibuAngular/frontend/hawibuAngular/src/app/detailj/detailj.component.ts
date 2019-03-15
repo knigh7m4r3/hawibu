@@ -93,7 +93,6 @@ export class DetailjComponent implements OnInit, OnDestroy {
 
 
     })
-
   }
 
 }

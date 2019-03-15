@@ -8,4 +8,6 @@ export class Bon {
   geschaeft: Geschaeft;
   monat: Monat;
   posten: Posten[];
+
+
 }

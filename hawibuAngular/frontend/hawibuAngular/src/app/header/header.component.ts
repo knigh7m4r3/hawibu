@@ -1,6 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import {JahrService} from "../services/jahr.service";
-import {Jahr} from "../model/Jahr";
+import {Component, OnInit} from '@angular/core';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-header',
@@ -9,13 +8,14 @@ import {Jahr} from "../model/Jahr";
 })
 export class HeaderComponent implements OnInit {
 
-  constructor(private jahrService: JahrService) { }
-
-  jahrList: Jahr[];
+  constructor(private router: Router) { }
 
   ngOnInit() {
 
 
   }
 
+  openBonErstellen(): void{
+    this.router.navigateByUrl("/createBon");
+  }
 }

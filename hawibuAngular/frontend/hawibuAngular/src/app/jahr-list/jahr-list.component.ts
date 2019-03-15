@@ -33,20 +33,17 @@ export class JahrListComponent implements OnInit {
         jahrMonate.push(this.monate[j] + "" + (i - 2000));
       }
       this.jahrMonatMap.set(i+"", jahrMonate);
-      console.log(this.jahrMonatMap);
     }
 
   }
 
   handleJahrClick(jahr: string): void{
-    console.log("clicked at:\t" + jahr);
     this.selectedJahr = jahr;
     this.changeSelection(jahr);
   }
 
 
   handleMonatClick(monat: string): void{
-    console.log("clicked at:\t" + monat);
     this.changeSelection(monat);
   }
 

@@ -1,0 +1,83 @@
+<div *ngIf="isLoading <= maxSubscriptions">
+  Still loading....
+</div>
+
+
+<div *ngIf="isLoading >= maxSubscriptions">
+  <h2 align="center">Neuen Bon anlegen</h2>
+  <div style="display:flex; justify-content: center">
+    <div>Datum: <input type="date" [(ngModel)]="selectedDate"></div>
+    <div>
+      Geschäft:
+      <select [(ngModel)]="selectedGeschaeft" style="width: 200px">
+        <option *ngFor="let gesch of geschaefte" [ngValue]="gesch">{{gesch.ort}} | {{gesch.name}}</option>
+      </select>
+    </div>
+  </div>
+
+  <div style="display:flex; justify-content: center">
+    <label *ngIf="!selectedDate">Noch keinen Bon</label>
+    <label *ngIf="!selectedDate && !selectedGeschaeft">&nbsp;und&nbsp;</label>
+    <label *ngIf="!selectedGeschaeft">Noch kein Geschäft</label>
+    <label *ngIf="!selectedGeschaeft || !selectedDate">&nbsp;ausgewählt!</label>
+  </div>
+
+  <div *ngIf="selectedDate && selectedGeschaeft" align="center">
+    <div style="display: flex; justify-content: space-evenly">
+
+      <div>
+        <label>Artikel:</label>
+        <select [(ngModel)]="selectedArtikel" style="min-width: 150px">
+          <option *ngFor="let art of artikel" [ngValue]="art">
+            {{art.kategorie.name}} | {{art.name}}
+          </option>
+        </select>
+      </div>
+
+      <div>
+        <label>Menge:</label>
+        <input type="number" min="1" max="9999" value="1" [(ngModel)]="selectedMenge" class="numberInput">
+      </div>
+
+      <div>
+        <label>€ / Stck.</label>
+        <input type="number" step="0.01" max="9999" value="0.01" [(ngModel)]="selectedPreis" class="numberInput">
+      </div>
+
+      <button (click)="createPosten()" class="button" style="padding: 0">Hinzufügen</button>
+
+    </div>
+
+    <div>
+      <table>
+        <colgroup>
+          <col span="1" style="max-width: 50%; min-width: 200px">
+          <col span="1" style="max-width: 20%; min-width: 100px" >
+          <col span="1" style="max-width: 20%; min-width: 100px" >
+          <col span="1" style="max-width: 10%; min-width: 100px;" >
+        </colgroup>
+        <tr>
+          <th>Artikel</th>
+          <th style="text-align: center">Menge</th>
+          <th style="text-align: center">Preis</th>
+          <th style="text-align: center">Entfernen</th>
+        </tr>
+
+        <tr *ngFor="let post of posten">
+          <td>{{post.artikel.name}}</td>
+          <td style="text-align: center">{{post.menge}}</td>
+          <td style="text-align: center">{{post.preis}}</td>
+          <td style="text-align: center">
+            <button style="color:red" (click)="removePosten(post)">X</button>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div>
+      <h4>Gesamt: {{currentGesamt | number:'.2-2'}}€</h4>
+      <button *ngIf="posten.length > 0" (click)="saveBon()" class="button">
+        Speichern
+      </button>
+    </div>
+  </div>
+</div>
