@@ -41,22 +41,22 @@
   insert into Monat(id, monat, name, jahr_id) values(4011, 11, 'November 19', 2019);
   insert into Monat(id, monat, name, jahr_id) values(4012, 12, 'Dezember 19', 2019);
  
-  insert into geschaeft(id, name, ort) values(1000, 'Aldi', 'Gröpelingen');
-  insert into geschaeft(id, name, ort) values(1001, 'Penny', 'Gröpelingen');
-  insert into geschaeft(id, name, ort) values(1002, 'Rewe', 'Gröpelingen');
+  insert into geschaeft(id, name, ort) values(1000, 'Aldi', 'Groepelingen');
+  insert into geschaeft(id, name, ort) values(1001, 'Penny', 'Groepelingen');
+  insert into geschaeft(id, name, ort) values(1002, 'Rewe', 'Groepelingen');
   insert into geschaeft(id, name, ort) values(2000, 'Aldi', 'Nordenham');
   insert into geschaeft(id, name, ort) values(2001, 'E-Center', 'Nordenham');
  
   insert into Kategorie(id, name) values(1000, 'Lebensmittel');
-  insert into Kategorie(id, name) values(1001, 'Süßkram');
-  insert into Kategorie(id, name) values(1002, 'Getränke');
+  insert into Kategorie(id, name) values(1001, 'Sueßkram');
+  insert into Kategorie(id, name) values(1002, 'Getraenke');
   insert into Kategorie(id, name) values(1003, 'Spiele');
   insert into Kategorie(id, name) values(1004, 'Haushalt');
   insert into Kategorie(id, name) values(1005, 'Bad');
   insert into Kategorie(id, name) values(1006, 'Sonstiges');
  
   insert into Artikel(id, name, kategorie_id) values(1000, 'Toast', 1000);
-  insert into Artikel(id, name, kategorie_id) values(1001, 'Käse', 1000);
+  insert into Artikel(id, name, kategorie_id) values(1001, 'Kaese', 1000);
   insert into Artikel(id, name, kategorie_id) values(1002, 'Wurst', 1000);
  
   insert into Artikel(id, name, kategorie_id) values(1010, 'Skittles', 1001);

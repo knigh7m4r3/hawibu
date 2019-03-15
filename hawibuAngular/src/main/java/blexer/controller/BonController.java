@@ -26,13 +26,12 @@ public class BonController {
     @PostMapping("/api/bon")
     public ResponseEntity<?> save(@RequestBody Bon bon){
         bonService.saveEntity(bon);
-        return ResponseEntity.ok().body("Bon created!");
+        return ResponseEntity.ok().body("Bon created!" + bon.getId());
     }
 
     @GetMapping("/api/bon/{id}")
     public ResponseEntity<Bon> get(@PathVariable("id") Integer id){
-        final Bon bon = bonService.getEntity(id);
-        return ResponseEntity.ok().body(bon);
+        return ResponseEntity.ok().body(bonService.getEntity(id));
     }
 
     @PutMapping("/api/bon/")

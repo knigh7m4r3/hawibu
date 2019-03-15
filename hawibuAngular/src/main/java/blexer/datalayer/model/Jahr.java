@@ -1,12 +1,14 @@
 package blexer.datalayer.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.Proxy;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
 
 @Entity
+@Proxy(lazy = false)
 public class Jahr {
 
     @Id
@@ -15,7 +17,7 @@ public class Jahr {
 
     private Integer jahr;
 
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany
     @JsonIgnore
     private List<Monat> monat;
 
