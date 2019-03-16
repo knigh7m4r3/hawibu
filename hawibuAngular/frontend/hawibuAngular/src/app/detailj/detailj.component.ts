@@ -71,27 +71,27 @@ export class DetailjComponent implements OnInit, OnDestroy {
 
   private processNewBonList():void{
     this.currentGesamt = 0;
-    this.katMap = new Map<string, number>();
+    let localKatMap= new Map<string, number>();
     this.postenService.getAllByBons(this.bonList).subscribe(data => {
       for(let posten of data){
         let kat: string = posten.artikel.kategorie.name;
-        if(!this.katMap.has(kat)){
-          this.katMap.set(kat, 0.0);
+        if(!localKatMap.has(kat)){
+          localKatMap.set(kat, 0.0);
         }
-        this.katMap.set(kat, this.katMap.get(kat) + (posten.menge * posten.preis));
+        localKatMap.set(kat, localKatMap.get(kat) + (posten.menge * posten.preis));
         this.currentGesamt += posten.preis * posten.menge;
       }
 
 
       let tmp: number[] = [];
-      this.pieChartLabels = [];
-      this.katMap.forEach((value: number, key: string) => {
-        this.pieChartLabels.push(key);
+      let tmpLabel: Label[] = [];
+      localKatMap.forEach((value: number, key: string) => {
+        tmpLabel.push(key);
         tmp.push(value);
       });
       this.pieChartData = tmp;
-
-
+      this.pieChartLabels = tmpLabel;
+      this.katMap = localKatMap;
     })
   }
 

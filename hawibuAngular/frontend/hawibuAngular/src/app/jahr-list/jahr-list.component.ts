@@ -8,7 +8,7 @@ import {JahrListService} from "./jahr.service";
 })
 export class JahrListComponent implements OnInit {
 
-  startJahr: number = 2012;
+  startJahr: number = 2016;
 
   selectedJahr: String  = "";
   selectedItem: String = "";
