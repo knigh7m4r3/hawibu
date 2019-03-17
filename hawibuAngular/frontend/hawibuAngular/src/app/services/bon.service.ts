@@ -22,4 +22,9 @@ export class BonService {
   getAllBonByJahr(jahr: string): Observable<Bon[]>{
     return this.http.get<Bon[]>(this.bonURL + "/byJahr/" + jahr);
   }
+
+
+  saveBon(bon: Bon): Observable<Bon>{
+    return this.http.post<Bon>(this.bonURL, bon);
+  }
 }

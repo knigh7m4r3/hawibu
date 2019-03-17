@@ -17,4 +17,9 @@ export class PostenService {
     return this.http.post<Posten[]>(this.postenURL + "/byBons", bon);
   }
 
+  savePosten(posten: Posten): Observable<Posten>{
+    return this.http.post<Posten>(this.postenURL, posten);
+
+  }
+
 }

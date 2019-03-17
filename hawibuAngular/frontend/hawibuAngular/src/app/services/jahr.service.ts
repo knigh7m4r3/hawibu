@@ -10,7 +10,7 @@ export class JahrService {
 
   constructor(private http: HttpClient) { }
 
-  private jahrURL = "http://localhost:8080/hawibu_war/api/jahr";
+  private jahrURL = "http://localhost:4200/hawibuAngular_war/api/jahr";
   getAllJahr(): Observable<Jahr[]>{
     return this.http.get<Jahr[]>(this.jahrURL);
   }

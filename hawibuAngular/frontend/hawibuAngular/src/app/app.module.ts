@@ -19,6 +19,7 @@ import {FormsModule} from "@angular/forms";
 import {GeschaeftService} from "./services/geschaeft.service";
 import {KategorieService} from "./services/kategorie.service";
 import {ArtikelService} from "./services/artikel.service";
+import {MonatService} from "./services/monat.service";
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import {ArtikelService} from "./services/artikel.service";
     PostenService,
     GeschaeftService,
     KategorieService,
-    ArtikelService
+    ArtikelService,
+    MonatService
   ],
   bootstrap: [AppComponent]
 })

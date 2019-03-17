@@ -6,7 +6,7 @@
 <div *ngIf="isLoading >= maxSubscriptions">
   <h2 align="center">Neuen Bon anlegen</h2>
   <div style="display:flex; justify-content: center">
-    <div>Datum: <input type="date" [(ngModel)]="selectedDate"></div>
+    <div>Datum: <input type="date" (change)="changeDate($event)"></div>
     <div>
       Geschäft:
       <select [(ngModel)]="selectedGeschaeft" style="width: 200px">
@@ -16,7 +16,7 @@
   </div>
 
   <div style="display:flex; justify-content: center">
-    <label *ngIf="!selectedDate">Noch keinen Bon</label>
+    <label *ngIf="!selectedDate">Noch kein Datum</label>
     <label *ngIf="!selectedDate && !selectedGeschaeft">&nbsp;und&nbsp;</label>
     <label *ngIf="!selectedGeschaeft">Noch kein Geschäft</label>
     <label *ngIf="!selectedGeschaeft || !selectedDate">&nbsp;ausgewählt!</label>

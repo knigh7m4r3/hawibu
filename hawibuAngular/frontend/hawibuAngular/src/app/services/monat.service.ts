@@ -11,13 +11,17 @@ export class MonatService {
 
   constructor(private http: HttpClient) { }
 
-  private monatURL = "http://localhost:8080/hawibu_war/api/monat";
+  private monatURL = "http://localhost:4200/hawibuAngular_war/api/monat";
   getAllMonat(): Observable<Monat[]>{
     return this.http.get<Monat[]>(this.monatURL);
   }
 
   getAllJahrByDistinctMonat(monate:Monat[]): Observable<Jahr[]>{
     return this.http.post<Jahr[]>(this.monatURL + "/getJahrByMonat", monate);
+  }
+
+  getByName(monatName: string): Observable<Monat>{
+    return this.http.get<Monat>(this.monatURL + "/byName/" + monatName);
   }
 
 }
