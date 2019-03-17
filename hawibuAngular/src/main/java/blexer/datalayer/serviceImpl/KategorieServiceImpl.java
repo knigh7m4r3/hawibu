@@ -21,8 +21,8 @@ public class KategorieServiceImpl implements KategorieService {
     }
 
     @Transactional
-    public void saveEntity(Kategorie entity) {
-        repository.save(entity);
+    public Kategorie saveEntity(Kategorie entity) {
+        return repository.save(entity);
     }
 
     @Transactional

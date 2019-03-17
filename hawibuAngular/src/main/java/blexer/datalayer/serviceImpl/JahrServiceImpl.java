@@ -1,6 +1,7 @@
 package blexer.datalayer.serviceImpl;
 
 import blexer.datalayer.repository.JahrRepository;
+import blexer.datalayer.repository.JahrRepositoryCustom;
 import blexer.datalayer.service.JahrService;
 import blexer.datalayer.model.Jahr;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,14 +16,17 @@ public class JahrServiceImpl implements JahrService {
      @Autowired
      private JahrRepository repository;
 
+     @Autowired
+     private JahrRepositoryCustom repositoryCustom;
+
     @Transactional
     public Jahr getEntity(Integer id) {
         return repository.getOne(id);
     }
 
     @Transactional
-    public void saveEntity(Jahr entity) {
-        repository.save(entity);
+    public Jahr saveEntity(Jahr entity) {
+        return repository.save(entity);
     }
 
     @Transactional
@@ -38,5 +42,10 @@ public class JahrServiceImpl implements JahrService {
     @Transactional
     public List<Jahr> getAll() {
         return repository.findAll();
+    }
+
+    @Transactional
+    public Jahr getByJahr(Integer jahr) {
+        return repositoryCustom.getByJahr(jahr);
     }
 }

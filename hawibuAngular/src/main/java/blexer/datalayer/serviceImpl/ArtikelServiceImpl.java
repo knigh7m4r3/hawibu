@@ -21,8 +21,8 @@ public class ArtikelServiceImpl implements ArtikelService {
     }
 
     @Transactional
-    public void saveEntity(Artikel entity) {
-        repository.save(entity);
+    public Artikel saveEntity(Artikel entity) {
+        return repository.save(entity);
     }
 
     @Transactional

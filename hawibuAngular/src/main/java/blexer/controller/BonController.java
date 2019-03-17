@@ -25,8 +25,8 @@ public class BonController {
 
     @PostMapping("/api/bon")
     public ResponseEntity<?> save(@RequestBody Bon bon){
-        bonService.saveEntity(bon);
-        return ResponseEntity.ok().body("Bon created!" + bon.getId());
+        final Bon newBon = bonService.saveEntity(bon);
+        return ResponseEntity.ok().body(newBon);
     }
 
     @GetMapping("/api/bon/{id}")

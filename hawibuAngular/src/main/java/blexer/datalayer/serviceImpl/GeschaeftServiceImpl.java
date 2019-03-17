@@ -21,8 +21,8 @@ public class GeschaeftServiceImpl implements GeschaeftService {
     }
 
     @Transactional
-    public void saveEntity(Geschaeft entity) {
-        repository.save(entity);
+    public Geschaeft saveEntity(Geschaeft entity) {
+        return repository.save(entity);
     }
 
     @Transactional

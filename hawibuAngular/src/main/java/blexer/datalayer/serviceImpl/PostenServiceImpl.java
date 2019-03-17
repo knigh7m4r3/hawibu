@@ -26,8 +26,8 @@ public class PostenServiceImpl implements PostenService {
     }
 
     @Transactional
-    public void saveEntity(Posten entity) {
-        repository.save(entity);
+    public Posten saveEntity(Posten entity) {
+        return repository.save(entity);
     }
 
     @Transactional

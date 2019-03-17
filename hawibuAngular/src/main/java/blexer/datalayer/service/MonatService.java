@@ -5,4 +5,6 @@ import blexer.datalayer.model.Monat;
 
 public interface MonatService extends CoreService<Monat, Integer> {
 
+    Monat getByName(String monatName);
+
 }

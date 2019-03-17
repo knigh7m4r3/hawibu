@@ -25,8 +25,8 @@ public class BonServiceImpl implements BonService {
     }
 
     @Transactional
-    public void saveEntity(Bon entity) {
-        repository.save(entity);
+    public Bon saveEntity(Bon entity) {
+        return repository.save(entity);
     }
 
     @Transactional

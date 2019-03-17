@@ -32,6 +32,23 @@ public class Monat {
         }
     };
 
+    public final static Map<String, Integer> MONATZAHLMAPPINGAP = new HashMap<String, Integer>(){
+        {
+            put("Januar", 1);
+            put("Februar", 2);
+            put("März", 3);
+            put("April", 4);
+            put("Mai", 5);
+            put("Juni", 6);
+            put("Juli", 7);
+            put("August", 8);
+            put("September", 9);
+            put("Oktober", 10);
+            put("November", 11);
+            put("Dezember", 12);
+        }
+    };
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;

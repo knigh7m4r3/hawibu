@@ -24,8 +24,8 @@ public class PostenController {
 
     @PostMapping("/api/posten")
     public ResponseEntity<?> save(@RequestBody Posten posten){
-        postenService.saveEntity(posten);
-        return ResponseEntity.ok().body("Posten created!");
+        final Posten newPosten = postenService.saveEntity(posten);
+        return ResponseEntity.ok().body(newPosten);
     }
 
     @GetMapping("/api/posten/{id}")
