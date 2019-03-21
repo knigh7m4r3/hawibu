@@ -22,16 +22,19 @@
     <label *ngIf="!selectedGeschaeft || !selectedDate">&nbsp;ausgewählt!</label>
   </div>
 
+
   <div *ngIf="selectedDate && selectedGeschaeft" align="center">
     <div style="display: flex; justify-content: space-evenly">
 
       <div>
         <label>Artikel:</label>
-        <select [(ngModel)]="selectedArtikel" style="min-width: 150px">
-          <option *ngFor="let art of artikel" [ngValue]="art">
-            {{art.kategorie.name}} | {{art.name}}
-          </option>
-        </select>
+        <input [(ngModel)]="selectedArtikelName"
+               [typeahead]="artikel"
+               [typeaheadScrollable]="true"
+               typeaheadOptionField="name"
+               [typeaheadOptionsInScrollableView]="5"
+               (typeaheadOnSelect)="onArtikelSelect($event)"
+               class="form-control">
       </div>
 
       <div>

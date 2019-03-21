@@ -11,6 +11,7 @@ import {MonatService} from "../services/monat.service";
 import {BonService} from "../services/bon.service";
 import {PostenService} from "../services/posten.service";
 import {Router} from "@angular/router";
+import {TypeaheadMatch} from "ngx-bootstrap";
 
 @Component({
   selector: 'app-bon',
@@ -36,10 +37,11 @@ export class BonComponent implements OnInit {
 
   artikel: Artikel[] = [];
   selectedArtikel: Artikel;
+  selectedArtikelName: string;
 
   kategorien: Kategorie[] =[];
 
-  currentBon: Bon;behe
+  currentBon: Bon;
 
   currentGesamt: number = 0;
 
@@ -82,7 +84,6 @@ export class BonComponent implements OnInit {
       this.createCurrentBon();
     }
 
-    console.log(this.selectedArtikel);
     let post: Posten = new Posten();
     post.preis = this.selectedPreis;
     post.menge = this.selectedMenge;
@@ -103,29 +104,24 @@ export class BonComponent implements OnInit {
   }
 
   persistBon(): void{
-    // TODO Monat in Bon speichern
     let bon: Bon = this.currentBon;
-    let monatString = this.monate[this.selectedDate.getMonth()] + " " + (this.selectedDate.getFullYear() - 2000);
+    let monatString = this.monate[this.selectedDate.getMonth()] + "" + (this.selectedDate.getFullYear() - 2000);
     this.monatService.getByName(monatString).toPromise().then( data =>   {
       bon.monat = data;
     } ).then(() => {
       this.bonService.saveBon(bon).subscribe(data => {
         this.currentBon = data;
-        console.log(this.currentBon);
         this.saveBon();
       });
     });
   }
 
   saveBon():void{
-  //  TODO Bon abspeichern
     if(!this.currentBon.id){
       this.persistBon();
       return null;
     }
     for(let post of this.posten){
-      console.log(post.bon);
-      console.log(this.currentBon);
       post.bon = this.currentBon;
       this.postenService.savePosten(post).subscribe(data => console.log(data));
     }
@@ -135,5 +131,9 @@ export class BonComponent implements OnInit {
 
   changeDate($event): void{
     this.selectedDate = new Date($event.target.value);
+  }
+
+  onArtikelSelect(event: TypeaheadMatch): void{
+    this.selectedArtikel = event.item;
   }
 }
