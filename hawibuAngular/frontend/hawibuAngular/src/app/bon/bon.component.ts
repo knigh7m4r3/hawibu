@@ -33,6 +33,7 @@ export class BonComponent implements OnInit {
 
   posten: Posten[] =[];
 
+  dateToday : string;
   selectedDate: Date;
 
   artikel: Artikel[] = [];
@@ -66,6 +67,10 @@ export class BonComponent implements OnInit {
       this.kategorien = data;
       ++this.isLoading;
     });
+    const date = new Date();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    this.dateToday = date.getFullYear() + "-" + month + "-" + day;
   }
 
 

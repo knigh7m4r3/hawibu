@@ -6,7 +6,7 @@
 <div *ngIf="isLoading >= maxSubscriptions">
   <h2 align="center">Neuen Bon anlegen</h2>
   <div style="display:flex; justify-content: center">
-    <div>Datum: <input type="date" (change)="changeDate($event)"></div>
+    <div>Datum: <input type="date" max="{{dateToday}}" (change)="changeDate($event)"></div>
     <div>
       Geschäft:
       <select [(ngModel)]="selectedGeschaeft" style="width: 200px">
