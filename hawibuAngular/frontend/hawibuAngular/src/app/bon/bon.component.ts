@@ -1,29 +1,43 @@
-import {Component, OnInit} from '@angular/core';
-import {Geschaeft} from "../model/Geschaeft";
-import {GeschaeftService} from "../services/geschaeft.service";
-import {Posten} from "../model/Posten";
-import {ArtikelService} from "../services/artikel.service";
-import {KategorieService} from "../services/kategorie.service";
-import {Artikel} from "../model/Artikel";
-import {Kategorie} from "../model/Kategorie";
-import {Bon} from "../model/Bon";
-import {MonatService} from "../services/monat.service";
-import {BonService} from "../services/bon.service";
-import {PostenService} from "../services/posten.service";
-import {Router} from "@angular/router";
-import {TypeaheadMatch} from "ngx-bootstrap";
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
+import {TypeaheadMatch} from 'ngx-bootstrap';
+import {Subscription} from 'rxjs';
+import {Artikel} from '../model/Artikel';
+import {Bon} from '../model/Bon';
+import {Geschaeft} from '../model/Geschaeft';
+import {Kategorie} from '../model/Kategorie';
+import {Posten} from '../model/Posten';
+import {ArticleBonService} from '../services/article-bon.service';
+import {ArtikelService} from '../services/artikel.service';
+import {BonService} from '../services/bon.service';
+import {GeschaeftService} from '../services/geschaeft.service';
+import {KategorieService} from '../services/kategorie.service';
+import {MonatService} from '../services/monat.service';
+import {PostenService} from '../services/posten.service';
 
 @Component({
   selector: 'app-bon',
   templateUrl: './bon.component.html',
   styleUrls: ['./bon.component.css']
 })
-export class BonComponent implements OnInit {
-  monate: String[] = ["Januar ", "Februar ", "März ", "April ", "Mai ", "Juni ", "Juli ", "August ", "September ", "Oktober ", "November ", "Dezember "];
-
+export class BonComponent implements OnInit, OnDestroy {
+  monate: String[] = [
+    'Januar ',
+    'Februar ',
+    'März ',
+    'April ',
+    'Mai ',
+    'Juni ',
+    'Juli ',
+    'August ',
+    'September ',
+    'Oktober ',
+    'November ',
+    'Dezember '];
 
   isLoading: number = 0;
-  maxSubscriptions : number = 0;
+  maxSubscriptions: number = 0;
+  showAddArticle: boolean = false;
 
   geschaefte: Geschaeft[] = [];
   selectedGeschaeft: Geschaeft;
@@ -31,50 +45,68 @@ export class BonComponent implements OnInit {
   selectedPreis: number;
   selectedMenge: number;
 
-  posten: Posten[] =[];
+  posten: Posten[] = [];
 
-  dateToday : string;
+  dateToday: string;
   selectedDate: Date;
 
   artikel: Artikel[] = [];
   selectedArtikel: Artikel;
   selectedArtikelName: string;
 
-  kategorien: Kategorie[] =[];
+  kategorien: Kategorie[] = [];
 
   currentBon: Bon;
 
   currentGesamt: number = 0;
 
-  constructor(private geschaeftService: GeschaeftService,
-              private artikelService: ArtikelService,
-              private kategorieService: KategorieService,
-              private monatService: MonatService,
-              private bonService: BonService,
-              private postenService: PostenService,
-              private router: Router) { }
+  subscription: Subscription;
+
+  constructor(private articleBonService: ArticleBonService, private geschaeftService: GeschaeftService, private artikelService: ArtikelService,
+              private kategorieService: KategorieService, private monatService: MonatService, private bonService: BonService,
+              private postenService: PostenService, private router: Router) {
+  }
 
   ngOnInit() {
+    this.subscription = this.articleBonService.emitter.subscribe(data => {
+      this.showAddArticle = data;
+      this.loadArtikel();
+      this.loadKategorie();
+    });
     this.geschaeftService.getAllGeschaefte().subscribe(data => {
       this.geschaefte = data;
       ++this.isLoading;
     });
+    this.loadArtikel();
+    this.loadKategorie();
+
+    const date = new Date();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    this.dateToday = date.getFullYear() + '-' + month + '-' + day;
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
+
+  loadArtikel(): void {
+    this.artikel = [];
     this.artikelService.getAllArtikel().subscribe(data => {
       this.artikel = data;
       ++this.isLoading;
     });
+  }
+
+  loadKategorie(): void {
+    this.kategorien = [];
     this.kategorieService.getAllKategorie().subscribe(data => {
       this.kategorien = data;
       ++this.isLoading;
     });
-    const date = new Date();
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const day = String(date.getDate()).padStart(2, '0');
-    this.dateToday = date.getFullYear() + "-" + month + "-" + day;
   }
 
-
-  removePosten(post: Posten): void{
+  removePosten(post: Posten): void {
     this.currentGesamt -= post.menge * post.preis;
 
     const index = this.posten.indexOf(post, 0);
@@ -84,8 +116,8 @@ export class BonComponent implements OnInit {
 
   }
 
-  createPosten(): void{
-    if(!this.currentBon){
+  createPosten(): void {
+    if (!this.currentBon) {
       this.createCurrentBon();
     }
 
@@ -100,20 +132,19 @@ export class BonComponent implements OnInit {
 
   }
 
-
-  createCurrentBon():void {
+  createCurrentBon(): void {
     let bon: Bon = new Bon();
     bon.date = this.selectedDate;
     bon.geschaeft = this.selectedGeschaeft;
     this.currentBon = bon;
   }
 
-  persistBon(): void{
+  persistBon(): void {
     let bon: Bon = this.currentBon;
-    let monatString = this.monate[this.selectedDate.getMonth()] + "" + (this.selectedDate.getFullYear() - 2000);
-    this.monatService.getByName(monatString).toPromise().then( data =>   {
+    let monatString = this.monate[this.selectedDate.getMonth()] + '' + (this.selectedDate.getFullYear() - 2000);
+    this.monatService.getByName(monatString).toPromise().then(data => {
       bon.monat = data;
-    } ).then(() => {
+    }).then(() => {
       this.bonService.saveBon(bon).subscribe(data => {
         this.currentBon = data;
         this.saveBon();
@@ -121,24 +152,29 @@ export class BonComponent implements OnInit {
     });
   }
 
-  saveBon():void{
-    if(!this.currentBon.id){
+  saveBon(): void {
+    if (!this.currentBon.id) {
       this.persistBon();
       return null;
     }
-    for(let post of this.posten){
+    for (let post of this.posten) {
       post.bon = this.currentBon;
       this.postenService.savePosten(post).subscribe(data => console.log(data));
     }
 
-    this.router.navigateByUrl("/home");
+    this.router.navigateByUrl('/home');
   }
 
-  changeDate($event): void{
+  changeDate($event): void {
     this.selectedDate = new Date($event.target.value);
   }
 
-  onArtikelSelect(event: TypeaheadMatch): void{
+  onArtikelSelect(event: TypeaheadMatch): void {
     this.selectedArtikel = event.item;
   }
+
+  triggerAddArticle(): void {
+    this.showAddArticle = true;
+  }
+
 }

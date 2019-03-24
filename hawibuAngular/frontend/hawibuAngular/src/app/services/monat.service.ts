@@ -3,6 +3,7 @@ import {Observable} from "rxjs";
 import {Jahr} from "../model/Jahr";
 import {HttpClient} from "@angular/common/http";
 import {Monat} from "../model/Monat";
+import {AppComponent} from "../app.component";
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,7 @@ export class MonatService {
 
   constructor(private http: HttpClient) { }
 
-  private monatURL = "http://localhost:4200/hawibuAngular_war/api/monat";
+  private monatURL = AppComponent.baseURL + "/monat";
   getAllMonat(): Observable<Monat[]>{
     return this.http.get<Monat[]>(this.monatURL);
   }

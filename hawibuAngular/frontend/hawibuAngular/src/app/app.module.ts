@@ -1,26 +1,28 @@
-import {BrowserModule} from '@angular/platform-browser';
+import {CommonModule} from '@angular/common';
+import {HttpClientModule} from '@angular/common/http';
 import {NgModule} from '@angular/core';
+import {FormsModule} from '@angular/forms';
+import {BrowserModule} from '@angular/platform-browser';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {AngularFontAwesomeModule} from 'angular-font-awesome';
+import {ChartsModule} from 'ng2-charts';
+import {AlertModule, ModalModule, TabsModule, TypeaheadModule} from 'ngx-bootstrap';
+import {AddArticleComponent} from './add-article/add-article.component';
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
-import {HeaderComponent} from './header/header.component';
-import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
-import {JahrListComponent} from './jahr-list/jahr-list.component';
+import {BonComponent} from './bon/bon.component';
 import {DetailjComponent} from './detailj/detailj.component';
-import {HttpClientModule} from "@angular/common/http";
-import {CommonModule} from "@angular/common";
-import {JahrListService} from "./jahr-list/jahr.service";
-import {BonService} from "./services/bon.service";
-import {PostenService} from "./services/posten.service";
-import {ChartsModule} from "ng2-charts";
-import {ModalModule, TabsModule, TypeaheadModule} from "ngx-bootstrap";
-import { BonComponent } from './bon/bon.component';
-import {FormsModule} from "@angular/forms";
-import {GeschaeftService} from "./services/geschaeft.service";
-import {KategorieService} from "./services/kategorie.service";
-import {ArtikelService} from "./services/artikel.service";
-import {MonatService} from "./services/monat.service";
-import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
+import {HeaderComponent} from './header/header.component';
+import {JahrListComponent} from './jahr-list/jahr-list.component';
+import {JahrListService} from './jahr-list/jahr.service';
+import {ArtikelService} from './services/artikel.service';
+import {BonService} from './services/bon.service';
+import {GeschaeftService} from './services/geschaeft.service';
+import {KategorieService} from './services/kategorie.service';
+import {MonatService} from './services/monat.service';
+import {PostenService} from './services/posten.service';
 
 @NgModule({
   declarations: [
@@ -28,10 +30,11 @@ import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
     HeaderComponent,
     JahrListComponent,
     DetailjComponent,
-    BonComponent
-  ],
+    BonComponent,
+    AddArticleComponent],
   imports: [
     NgbModule,
+    AngularFontAwesomeModule,
     CommonModule,
     BrowserModule,
     BrowserAnimationsModule,
@@ -41,9 +44,8 @@ import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
     FormsModule,
     TabsModule.forRoot(),
     ModalModule.forRoot(),
-    TypeaheadModule.forRoot()
-
-  ],
+    TypeaheadModule.forRoot(),
+    AlertModule.forRoot()],
   providers: [
     JahrListService,
     BonService,
@@ -51,8 +53,8 @@ import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
     GeschaeftService,
     KategorieService,
     ArtikelService,
-    MonatService
-  ],
+    MonatService],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

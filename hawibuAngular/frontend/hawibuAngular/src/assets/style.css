@@ -859,4 +859,10 @@ and (orientation : portrait) {
 
 
 
+.full-width{
+  width : 100%;
+}
 
+.full-height{
+  height: 100%;
+}

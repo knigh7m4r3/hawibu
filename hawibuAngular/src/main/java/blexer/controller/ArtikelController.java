@@ -4,7 +4,13 @@ import blexer.datalayer.model.Artikel;
 import blexer.datalayer.service.ArtikelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -16,31 +22,31 @@ public class ArtikelController {
 
     //Get all coins
     @GetMapping("/api/artikel")
-    public ResponseEntity<List<Artikel>> list(){
-        List<Artikel> list = artikelService.getAll();
+    public ResponseEntity<List<Artikel>> list() {
+        final List<Artikel> list = artikelService.getAll();
         return ResponseEntity.ok().body(list);
     }
 
     @PostMapping("/api/artikel")
-    public ResponseEntity<?> save(@RequestBody Artikel artikel){
-        artikelService.saveEntity(artikel);
-        return ResponseEntity.ok().body("Artikel created!");
+    public ResponseEntity<?> save(@RequestBody final Artikel artikel) {
+
+        return ResponseEntity.ok().body(artikelService.saveEntity(artikel));
     }
 
     @GetMapping("/api/artikel/{id}")
-    public ResponseEntity<Artikel> get(@PathVariable("id") Integer id){
+    public ResponseEntity<Artikel> get(@PathVariable("id") final Integer id) {
         final Artikel artikel = artikelService.getEntity(id);
         return ResponseEntity.ok().body(artikel);
     }
 
     @PutMapping("/api/artikel/")
-    public ResponseEntity<?> update(@RequestBody Artikel artikel){
+    public ResponseEntity<?> update(@RequestBody final Artikel artikel) {
         artikelService.updateEntity(artikel);
         return ResponseEntity.ok().body("Artikel successfully updated!");
     }
 
     @DeleteMapping("/api/artikel/{artikel}")
-    public ResponseEntity<?> delete(@PathVariable("artikel") Artikel artikel){
+    public ResponseEntity<?> delete(@PathVariable("artikel") final Artikel artikel) {
         artikelService.deleteEntity(artikel);
         return ResponseEntity.ok().body("Artikel successfully deleted!");
     }

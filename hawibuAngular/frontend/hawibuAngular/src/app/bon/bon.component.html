@@ -3,13 +3,22 @@
 </div>
 
 
-<div *ngIf="isLoading >= maxSubscriptions">
-  <h2 align="center">Neuen Bon anlegen</h2>
+<div class="border border-dark">
+  <app-add-article *ngIf="showAddArticle" class="full-width full-height">
+
+  </app-add-article>
+</div>
+
+
+<div *ngIf="isLoading >= maxSubscriptions && !showAddArticle">
+  <h2 align="center" class="p-3"><b>Neuen Bon anlegen</b></h2>
   <div class="row justify-content-center">
-    <div class="col">
-      <div>Datum: <input type="date" max="{{dateToday}}" (change)="changeDate($event)"></div>
+    <div class="col d-flex justify-content-end">
+      <div>Datum:
+        <input type="date" max="{{dateToday}}" (change)="changeDate($event)">
+      </div>
     </div>
-    <div class="col">
+    <div class="col d-flex justify-content-start">
       Geschäft:
       <select [(ngModel)]="selectedGeschaeft" style="width: 200px">
         <option *ngFor="let gesch of geschaefte" [ngValue]="gesch">{{gesch.ort}} | {{gesch.name}}</option>
@@ -30,13 +39,9 @@
 
       <div class="col">
         <label>Artikel:</label>
-        <input [(ngModel)]="selectedArtikelName"
-               [typeahead]="artikel"
-               [typeaheadScrollable]="true"
-               typeaheadOptionField="name"
-               [typeaheadOptionsInScrollableView]="5"
-               (typeaheadOnSelect)="onArtikelSelect($event)"
-               class="form-control customArtikelInput">
+        <input [(ngModel)]="selectedArtikelName" [typeahead]="artikel" [typeaheadScrollable]="true" typeaheadOptionField="name"
+               [typeaheadOptionsInScrollableView]="5" (typeaheadOnSelect)="onArtikelSelect($event)" class="form-control customArtikelInput">
+        <button (click)="triggerAddArticle()">+</button>
       </div>
 
       <div class="col">

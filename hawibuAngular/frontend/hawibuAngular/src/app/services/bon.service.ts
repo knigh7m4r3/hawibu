@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Bon} from "../model/Bon";
+import {AppComponent} from "../app.component";
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,7 @@ export class BonService {
 
   constructor(private http: HttpClient) { }
 
-  private bonURL = "http://localhost:4200/hawibuAngular_war/api/bon";
+  private bonURL = AppComponent.baseURL + "/bon";
   getAllBon(): Observable<Bon[]>{
     return this.http.get<Bon[]>(this.bonURL);
   }

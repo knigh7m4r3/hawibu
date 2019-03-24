@@ -1,0 +1,19 @@
+.returnDiv {
+  position: absolute;
+  left: 0;
+  bottom: 25%;
+
+}
+
+.myAlertDiv {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  height: 100%;
+  z-index: 9999;
+}
+
+.wrongInput {
+  box-shadow: 1px 1px 1px red,
+  -1px -1px 1px red;
+}
